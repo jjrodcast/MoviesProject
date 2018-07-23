@@ -14,17 +14,12 @@ import pe.com.onecode.movieapp.utilities.GlideApp
 import pe.com.onecode.movieapp.utilities.ItemClick
 import pe.com.onecode.movieapp.utilities.inflateView
 
-class MovieAdapter(@LayoutRes private val resource: Int, private val movies: ArrayList<Movie>, val itemListener: ItemClick<Movie>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter(@LayoutRes private val resource: Int, private val itemListener: ItemClick<Movie>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     private val listMovies = arrayListOf<Movie>()
 
-    init {
-        addData(movies)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        //val view = LayoutInflater.from(parent.context).inflate(resource, parent, false)
         val view = parent.inflateView(resource)
         return ViewHolder(view)
     }
@@ -35,9 +30,10 @@ class MovieAdapter(@LayoutRes private val resource: Int, private val movies: Arr
         holder.bind(listMovies[position], itemListener)
     }
 
-    private fun addData(movies: ArrayList<Movie>) {
-        listMovies.addAll(movies);
-        notifyDataSetChanged();
+    fun addData(movies: ArrayList<Movie>) {
+        listMovies.clear()
+        listMovies.addAll(movies)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

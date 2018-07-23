@@ -26,9 +26,9 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), MovieView, ItemClick<Movie> {
 
-    private val TAG = MainActivity::class.java.canonicalName
-    private val presente: MoviePresenter = MoviePresenterImp(this)
-    private lateinit var layoutManager: RecyclerView.LayoutManager
+    private val presenter: MoviePresenter = MoviePresenterImp(this)
+    private lateinit var adapter: MovieAdapter
+    private lateinit var layoutManager: GridLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,24 +36,19 @@ class MainActivity : AppCompatActivity(), MovieView, ItemClick<Movie> {
 
         setSupportActionBar(toolbar as Toolbar)
 
-        presente.getMovies(page = 1)
+        createAdapter()
+
+        addScrollEvent()
+
+        presenter.getMovies(page = 1)
 
         fabrefresh.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 (fabrefresh.drawable as AnimatedVectorDrawable).start()
             }
-            //progressbar.visibility = View.VISIBLE
-            val page = randonPage()
-            presente.getMovies(page)
+            val page: Int = randomPage()
+            presenter.getMovies(page)
         }
-
-        recyclermovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && fabrefresh.visibility === View.VISIBLE) fabrefresh.hide()
-                else if (dy < 0 && fabrefresh.visibility !== View.VISIBLE) fabrefresh.show()
-            }
-        })
     }
 
     override fun getContext() = applicationContext
@@ -63,35 +58,45 @@ class MainActivity : AppCompatActivity(), MovieView, ItemClick<Movie> {
     }
 
     override fun showMovies(response: ResponseMovies) {
+        adapter.addData(response.movies)
+    }
 
-        val adapter = MovieAdapter(R.layout.item_recycler_movie, response.movies, this)
+    // To use this, you have to change your manifest and put orientation
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) layoutManager.spanCount = 3
+        else layoutManager.spanCount = 2
+    }
+
+    private fun createAdapter() {
+
+        adapter = MovieAdapter(R.layout.item_recycler_movie, this)
 
         val orientation = resources.configuration.orientation
-        var spancount = 2
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) spancount = 3
+        var spanCount = if (orientation == Configuration.ORIENTATION_LANDSCAPE) 3 else 2
 
+        layoutManager = GridLayoutManager(this, spanCount, GridLayoutManager.VERTICAL, false)
         recyclermovies.setHasFixedSize(true)
-        layoutManager = GridLayoutManager(this, spancount, GridLayoutManager.VERTICAL, false)
         recyclermovies.layoutManager = layoutManager
-
 
         if (recyclermovies.itemDecorationCount == 0) {
             val decorator = CustomDecorator(this, R.integer.offset)
             recyclermovies.addItemDecoration(decorator)
         }
         recyclermovies.adapter = adapter
-
-        //progressbar.visibility = View.GONE
-
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
-
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) (layoutManager as GridLayoutManager).spanCount = 3
-        else (layoutManager as GridLayoutManager).spanCount = 2
+    private fun addScrollEvent() {
+        recyclermovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && fabrefresh.visibility === View.VISIBLE) fabrefresh.hide()
+                else if (dy < 0 && fabrefresh.visibility !== View.VISIBLE) fabrefresh.show()
+            }
+        })
     }
 
-    private fun randonPage(): Int = (1..6).random()
+    private fun randomPage(): Int = (1..6).random()
 
 }
