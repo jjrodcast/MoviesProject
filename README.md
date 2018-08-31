@@ -1,12 +1,12 @@
 # MoviesDemo
-This repository was created to show the use of MVP + Klotin + Retrofit 2 in Android Studio. Simple movie application with nice UI
+This repository was created to show the use of MVVM + Klotin + Retrofit 2 + Paging Library in Android Studio. Simple movie application with nice UI. You will see the use of Google Paging Library using Network request, feel free to download and change the code if you want to customize.
 
 ## Preview
 Portrait
 
-![movieapp_portrait](https://user-images.githubusercontent.com/7152507/41891538-870dbbea-78da-11e8-9b8b-8e86979195e7.png)
+![movieapp_portrait](https://user-images.githubusercontent.com/7152507/44887621-c976aa00-ac92-11e8-96e6-4c5781867532.png)
 
 Landscape
 
-![movie_app_landscape](https://user-images.githubusercontent.com/7152507/41891539-872c20f8-78da-11e8-8c24-579297af92f4.png)
+![movieapp_landscape](https://user-images.githubusercontent.com/7152507/44887622-c976aa00-ac92-11e8-9f4d-f36149ed33ba.png)
 
