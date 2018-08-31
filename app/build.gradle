@@ -27,24 +27,45 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation "com.android.support:appcompat-v7:$rootProject.supportLibrary"
-    implementation "com.android.support:support-v4:$rootProject.supportLibrary"
-    implementation "com.android.support:design:$rootProject.supportLibrary"
-    implementation "com.android.support:cardview-v7:$rootProject.supportLibrary"
-    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibrary"
+    // Support Library
+    implementation supportDependency.appcompat
+    implementation supportDependency.support
+    implementation supportDependency.design
+    implementation supportDependency.cardview
+    implementation supportDependency.recyclerview
 
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitLibrary"
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitLibrary"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitLibrary"
+    // Retrofit
+    implementation retrofitDependency.retrofit
+    implementation retrofitDependency.converterGson
+    implementation retrofitDependency.adapterRxJava
 
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidLibrary"
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaLibrary"
+    // ReactiveX
+    implementation reactiveDependency.rxjava
+    implementation reactiveDependency.rxandroid
 
-    implementation "com.github.bumptech.glide:glide:$rootProject.glideLibrary"
-    kapt "com.github.bumptech.glide:compiler:$rootProject.glideLibrary"
+    // Lifecycle
+    implementation archLifeCycleDependency.viewmodel
+    kapt archLifeCycleDependency.compiler
+
+    // Room (not used in this branch)
+    //implementation persistenceDependency.room
+    //kapt persistenceDependency.compiler
+
+    // Paging
+    implementation pagingDependecy.paging
+    implementation pagingDependecy.rxJava
+
+    // Glide
+    implementation glideDependency.glide
+    kapt glideDependency.compiler
+
+    // Coroutines (not used in this branch)
+    //implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.25.0'
+    //implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.25.0'
+
+    // Test & Instruments
+    testImplementation  testDependency.junit
+    androidTestImplementation testDependency.runner
+    androidTestImplementation testDependency.espressoCore
 }

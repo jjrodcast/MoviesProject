@@ -1,0 +1,76 @@
+ext {
+    // Versions
+    supportLibraryVersion = '27.1.1'
+    junitVersion = '4.12'
+    runnerVersion = '1.0.2'
+    espressoCoreVersion = '3.0.2'
+    retrofitVersion = '2.4.0'
+    rxJavaVersion = '2.1.15'
+    rxAndroidVersion = '2.0.2'
+    glideVersion = '4.7.1'
+    architectureVersion = '1.1.1'
+    roomVersion = '1.1.1'
+    pagingVersion = '1.0.0'
+
+    // Packages
+    supportLibraryPackage = 'com.android.support'
+    junitPackage = 'junit'
+    runnerPackage = 'com.android.support.test'
+    espressoCorePackage = 'com.android.support.test.espresso'
+    retrofitPackage = 'com.squareup.retrofit2'
+    rxJavaPackage = 'io.reactivex.rxjava2'
+    glidePackage = 'com.github.bumptech.glide'
+    architecturePackage = 'android.arch.lifecycle'
+    roomPackage = 'android.arch.persistence.room'
+    pagingPackage = 'android.arch.paging'
+
+    // Dependencies
+    supportDependency = [
+            appcompat   : createDependency(supportLibraryPackage, 'appcompat-v7', supportLibraryVersion),
+            support     : createDependency(supportLibraryPackage, 'support-v4', supportLibraryVersion),
+            design      : createDependency(supportLibraryPackage, 'design', supportLibraryVersion),
+            cardview    : createDependency(supportLibraryPackage, 'cardview-v7', supportLibraryVersion),
+            recyclerview: createDependency(supportLibraryPackage, 'recyclerview-v7', supportLibraryVersion)
+    ]
+
+    retrofitDependency = [
+            retrofit     : createDependency(retrofitPackage, 'retrofit', retrofitVersion),
+            converterGson: createDependency(retrofitPackage, 'converter-gson', retrofitVersion),
+            adapterRxJava: createDependency(retrofitPackage, 'adapter-rxjava2', retrofitVersion)
+    ]
+
+    reactiveDependency = [
+            rxjava   : createDependency(rxJavaPackage, 'rxjava', rxJavaVersion),
+            rxandroid: createDependency(rxJavaPackage, 'rxandroid', rxAndroidVersion)
+    ]
+
+    glideDependency = [
+            glide   : createDependency(glidePackage, 'glide', glideVersion),
+            compiler: createDependency(glidePackage, 'compiler', glideVersion)
+    ]
+
+    archLifeCycleDependency = [
+            viewmodel: createDependency(architecturePackage, 'extensions', architectureVersion),
+            compiler : createDependency(architecturePackage, 'compiler', architectureVersion)
+    ]
+
+    persistenceDependency = [
+            room    : createDependency(roomPackage, 'runtime', roomVersion),
+            compiler: createDependency(roomPackage, 'compiler', roomVersion),
+    ]
+
+    testDependency = [
+            junit       : createDependency(junitPackage, 'junit', junitVersion),
+            runner      : createDependency(runnerPackage, 'runner', runnerVersion),
+            espressoCore: createDependency(espressoCorePackage, 'espresso-core', espressoCoreVersion)
+    ]
+
+    pagingDependecy = [
+            paging: createDependency(pagingPackage, 'runtime', pagingVersion),
+            rxJava: createDependency(pagingPackage, 'rxjava2', pagingVersion + '-rc1')
+    ]
+}
+
+static String createDependency(String androidPackage, String dependency, String version) {
+    return "${androidPackage}:${dependency}:${version}"
+}

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.MainActivity">
+    tools:context=".view.ui.MainActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -25,22 +25,15 @@
 
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:progressBackgroundTint="@color/colorIcons"
-        android:visibility="gone" />
-
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabrefresh"
+        android:id="@+id/fabTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="@dimen/fab_margin"
         android:layout_marginEnd="@dimen/fab_margin"
         android:clickable="true"
-        android:src="@drawable/anim_vector_refresh" />
+        android:src="@drawable/up_arrow"
+        android:focusable="true" />
 
 </android.support.design.widget.CoordinatorLayout>
